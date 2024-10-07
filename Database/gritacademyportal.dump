@@ -1,0 +1,180 @@
+-- MySQL dump 10.13  Distrib 5.7.29, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: gritacademyportal
+-- ------------------------------------------------------
+-- Server version	11.2.2-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `courses`
+--
+
+DROP TABLE IF EXISTS `courses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `courses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(256) NOT NULL,
+  `YHP` int(11) NOT NULL,
+  `Description` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `courses`
+--
+
+LOCK TABLES `courses` WRITE;
+/*!40000 ALTER TABLE `courses` DISABLE KEYS */;
+INSERT INTO `courses` VALUES (1,'Run',20,'Running'),(2,'Sprint',20,'Sprinting');
+/*!40000 ALTER TABLE `courses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `studentcourses`
+--
+
+DROP TABLE IF EXISTS `studentcourses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `studentcourses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CourseId` int(11) NOT NULL,
+  `StudentID` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `CourseId` (`CourseId`),
+  KEY `StudentID` (`StudentID`),
+  CONSTRAINT `studentcourses_ibfk_1` FOREIGN KEY (`CourseId`) REFERENCES `courses` (`id`),
+  CONSTRAINT `studentcourses_ibfk_2` FOREIGN KEY (`StudentID`) REFERENCES `students` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `studentcourses`
+--
+
+LOCK TABLES `studentcourses` WRITE;
+/*!40000 ALTER TABLE `studentcourses` DISABLE KEYS */;
+INSERT INTO `studentcourses` VALUES (5,1,2),(6,2,3),(7,1,1);
+/*!40000 ALTER TABLE `studentcourses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `students`
+--
+
+DROP TABLE IF EXISTS `students`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Fname` varchar(200) NOT NULL,
+  `Lname` varchar(200) NOT NULL,
+  `Town` varchar(200) NOT NULL,
+  `email` varchar(546) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `username` varchar(10) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `students`
+--
+
+LOCK TABLES `students` WRITE;
+/*!40000 ALTER TABLE `students` DISABLE KEYS */;
+INSERT INTO `students` VALUES (1,'Bob','bib','nin','bob@gmail.com','','Bob1','Bob1\r\n'),(2,'Rob','rib','njin','Rob@gmail.com','','Rob1','Rob1'),(3,'Lee','leedle','adak','Lee@gmal.com','','Lee1','Lee1');
+/*!40000 ALTER TABLE `students` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `teachercourses`
+--
+
+DROP TABLE IF EXISTS `teachercourses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `teachercourses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CourseId` int(11) NOT NULL,
+  `TeacherId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `CourseId` (`CourseId`),
+  KEY `TeacherId` (`TeacherId`),
+  CONSTRAINT `teachercourses_ibfk_1` FOREIGN KEY (`CourseId`) REFERENCES `courses` (`id`),
+  CONSTRAINT `teachercourses_ibfk_2` FOREIGN KEY (`TeacherId`) REFERENCES `teachers` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `teachercourses`
+--
+
+LOCK TABLES `teachercourses` WRITE;
+/*!40000 ALTER TABLE `teachercourses` DISABLE KEYS */;
+INSERT INTO `teachercourses` VALUES (1,1,1),(2,2,1);
+/*!40000 ALTER TABLE `teachercourses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `teachers`
+--
+
+DROP TABLE IF EXISTS `teachers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `teachers` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Fname` varchar(200) NOT NULL,
+  `Lname` varchar(200) NOT NULL,
+  `Town` varchar(256) NOT NULL,
+  `Email` varchar(256) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `Username` varchar(10) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `Username` (`Username`),
+  KEY `Id` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `teachers`
+--
+
+LOCK TABLES `teachers` WRITE;
+/*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
+INSERT INTO `teachers` VALUES (1,'Alrik','alrik','lund','Alrik@gmail.com','','Alrik1','Alrik1');
+/*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'gritacademyportal'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-10-05 11:35:22

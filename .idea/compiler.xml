@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Templete" />
+        <module name="Webb" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Templete" options="-endorseddirs C:\Code\Java23-WebDevJava-GritAcademyPortal-johanna-pettersson\target/endorsed" />
+      <module name="Webb" options="-endorseddirs C:\Code\Java23-WebDevJava-GritAcademyPortal-johanna-pettersson\Java23-WebDevJava-GritAcademyPortal-johanna-pettersson\target/endorsed" />
     </option>
   </component>
 </project>
